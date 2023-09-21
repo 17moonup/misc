@@ -65,7 +65,7 @@ EOL
 elif [ $ID == "kali" ]; then
 	
 	echo 'Kali_Rooling source.list changing'
-	sudo tee > dev/null << EOL
+	sudo tee > /etc/apt/sources.list << EOL
 deb https://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main non-free contrib
 EOL
 	sudo apt update && \
@@ -82,31 +82,33 @@ elif [ $ID == "centos" ]; then
 	sudo yum clean alli && \
     	sudo yum makecache && \
 	echo ' CentOS source.list && packages update success '
+	
+else 
+	exit 1
 
 fi
 ###############################################################################
 shell_path=$SHELL
-
-ohmyzsh() {
-	git clone https://github.com/ohmyzsh/ohmyzsh.git
-	./ohmyzsh/tools/install.sh || echo ' file_path(ohmyzsh/tools/install.sh )wrong or install.sh does not exist '
-	echo ' zsh && ohmyzsh done '
+ohmyzsh() {	
+	if [ -d "$HOME/.oh-my-zsh" ]; then
+		cp $PWD/.zshrc $HOME/
+	else 
+		git clone https://github.com/ohmyzsh/ohmyzsh.git
+		./ohmyzsh/tools/install.sh || echo ' file_path(ohmyzsh/tools/install.sh )wrong or install.sh does not exist '
+		cp $PWD/.zshrc $HOME/
+	echo ' .zshrc && oh-my-zsh done '
+	fi 
 }
-
 if [ "$shell_path" == *"zsh"* ]; then 
 	ohmyzsh
+elif echo '/bin/zsh' | grep -qFf /etc/shells ; then
+	ohmyzsh
 else
-	if [ grep -q '/bin/zsh' /etc/shells ]; then
-		ohmyzsh
-	else
-		sudo apt install zsh
-		ohmyzsh
-	fi
+	sudo apt install zsh
+	ohmyzsh
 fi
+chsh -s /bin/zsh
 ###############################################################################
-sudo apt install git 
 git config --global user.name "17moonup"
 git config --global user.email "17moonup@gmail.com"
 git config --list 
-
-
