@@ -108,6 +108,14 @@ else
 	ohmyzsh
 fi
 chsh -s /bin/zsh
+echo 'zsh done'
+###############################################################################
+if [ -d $HOME/.vim ]; then
+	cp $PWD/.vimrc $HOME/.vimrc
+else
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	cp $PWD/.vimrc $HOME/.vimrc
+fi
 ###############################################################################
 git config --global user.name "17moonup"
 git config --global user.email "17moonup@gmail.com"
