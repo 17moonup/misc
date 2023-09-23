@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# source.list + packages update -> zsh + ohmyzsh + .zshrc -> git -> ...
+# source.list + packages update -> zsh + ohmyzsh + .zshrc -> git -> vim + vundle-> .vimrc -> 
 
 echo ' < A QUICK START BOT FOR Ubuntu Debian Kali CentOS > '
 ###############################################################################
@@ -113,7 +113,7 @@ echo 'zsh done'
 if [ -d $HOME/.vim ]; then
 	cp $PWD/.vimrc $HOME/.vimrc
 else
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	sudo apt install vim
 	cp $PWD/.vimrc $HOME/.vimrc
 fi
 ###############################################################################
