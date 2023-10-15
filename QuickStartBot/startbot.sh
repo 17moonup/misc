@@ -1,6 +1,11 @@
 #!/bin/bash
 
-# source.list + packages update -> zsh + ohmyzsh + .zshrc -> git -> vim + vundle-> .vimrc -> 
+#Author:17moonup
+#Blog: https://suyiie.cloud
+#Time: 2023-9-28
+#Name: QuickStartBot.sh
+#Version:V1.0
+#Description: source.list + packages update -> zsh + ohmyzsh + .zshrc -> git -> vim + vundle-> .vimrc -> ......
 
 echo ' < A QUICK START BOT FOR Ubuntu Debian Kali CentOS > '
 ###############################################################################
@@ -117,6 +122,6 @@ else
 	cp $PWD/.vimrc $HOME/.vimrc
 fi
 ###############################################################################
-git config --global user.name "17moonup"
-git config --global user.email "17moonup@gmail.com"
+git config --global user.name "username"
+git config --global user.email "user@email.com"
 git config --list 
