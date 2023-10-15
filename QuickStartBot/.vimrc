@@ -12,6 +12,7 @@
     filetype plugin indent on		 	" load filetype plugins/indent settings
 	set autoread
 	set autoindent
+	set cindent
 	set mouse=a 
     set selection=exclusive
     set selectmode=mouse,key
@@ -74,21 +75,34 @@
     call vundle#begin()
     Plugin 'VundleVim/Vundle.vim'	"required
 "...Add your plugins here... "
-    Plugin 'scrooloose/nerdtree'
+    
+	Plugin 'scrooloose/nerdtree'
 	nnoremap <leader>n :NERDTreeFocus<CR>
-	nnoremap <C-n> :NERDTree<CR>
+	nnoremap <F3> :NERDTree<F3>
 	nnoremap <C-t> :NERDTreeToggle<CR>
 	nnoremap <C-f> :NERDTreeFind<CR>
-    Plugin 'ayu-theme/ayu-vim'
+    
+	Plugin 'ayu-theme/ayu-vim'
 "	https://github.com/ayu-theme/ayu-vim#indent-line
 	set termguicolors
 	" light, mirage, dark"
 	let ayucolor="mirage"
-    Plugin 'mattn/emmet-vim'
-    Plugin 'Syntastic'
+
+	Plugin 'mattn/emmet-vim'
+	let g:user_emmet_install_global = 0
+	let g:user_emmet_mode='nv'
+	autocmd FileType html,css EmmetInstall
+	let g:user_emmet_leader_key='<C-Y>,'
+
+	Plugin 'Syntastic'
 	set statusline+=%#warningmsg#
 	set statusline+=%{SyntasticStatuslineFlag()}
 	set statusline+=%*
+	
+	Plugin 'xptemplate'
+    let g:xptemplate_vars = "SParg=&BRfun= &BRloop= "
+	let php_noShortTags = 1
+	let g:xptemplate_brace_complete = "([{\""	
 
 	let g:syntastic_enable_signs=1
 	let g:syntastic_auto_loc_list = 1
@@ -121,11 +135,31 @@ autocmd BufNewFile *.py,*.sh,*.c :call SetTitle()
 func SetTitle()
 	if expand ("%:e") == 'sh'
 		call setline(1, "#!/bin/bash")
-		call setline(2, "#Author:17moonup")
-		call setline(3, "#Blog: suyiie.cloud")
+		call setline(2, "#Author:UserName")
+		call setline(3, "#Blog: https://suyiie.cloud")
 		call setline(4, "#Time: ".strftime("%F %T"))
 		call setline(5, "#Name: ".expand("%"))
 		call setline(6, "#Version:V1.0")
 		call setline(7, "#Description: This is a production script ")
 	endif
 endfunc
+
+" html自动补全
+autocmd BufNewFile *  setlocal filetype=html
+function! InsertHtmlTag()
+	let pat = '\c<\w\+\s*\(\s\+\w\+\s*=\s*[''#$;,()."a-z0-9]\+\)*\s*>'
+	normal! a>
+	let save_cursor = getpos('.')
+	let result = matchstr(getline(save_cursor[1]), pat)
+	"if (search(pat, 'b', save_cursor[1]) && searchpair('<','','>','bn',0,  getline('.')) > 0)
+	if (search(pat, 'b', save_cursor[1]))
+		normal! lyiwf>
+		normal! a</
+		normal! p
+		normal! a>
+	endif
+	:call cursor(save_cursor[1], save_cursor[2], save_cursor[3])
+endfunction
+inoremap > <ESC>:call InsertHtmlTag()<CR>a<CR><Esc>O
+
+inoremap ' ''<ESC>i
