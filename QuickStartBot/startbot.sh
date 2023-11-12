@@ -96,11 +96,11 @@ fi
 shell_path=$SHELL
 ohmyzsh() {	
 	if [ -d "$HOME/.oh-my-zsh" ]; then
-		cp $PWD/.zshrc $HOME/
+		cp $PWD/.zshrc /etc/zsh/.zshrc
 	else 
 		git clone https://github.com/ohmyzsh/ohmyzsh.git
 		./ohmyzsh/tools/install.sh || echo ' file_path(ohmyzsh/tools/install.sh )wrong or install.sh does not exist '
-		cp $PWD/.zshrc $HOME/
+		cp $PWD/.zshrc /etc/zsh/.zshrc
 	echo ' .zshrc && oh-my-zsh done '
 	fi 
 }
@@ -116,10 +116,10 @@ chsh -s /bin/zsh
 echo 'zsh done'
 ###############################################################################
 if [ -d $HOME/.vim ]; then
-	cp $PWD/.vimrc $HOME/.vimrc
+	cp $PWD/.vimrc /etc/vim/.vimrc
 else
 	sudo apt install vim
-	cp $PWD/.vimrc $HOME/.vimrc
+	cp $PWD/.vimrc /etc/vim/.vimrc
 fi
 ###############################################################################
 git config --global user.name "username"
