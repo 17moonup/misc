@@ -1,0 +1,9 @@
+setup.py
+pinyin-converter/__init__.py
+pinyin-converter/pinyin_converter.py
+wade_giles.egg-info/PKG-INFO
+wade_giles.egg-info/SOURCES.txt
+wade_giles.egg-info/dependency_links.txt
+wade_giles.egg-info/entry_points.txt
+wade_giles.egg-info/requires.txt
+wade_giles.egg-info/top_level.txt

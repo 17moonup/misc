@@ -13,7 +13,7 @@ ZSH_THEME="robbyrussell"
 ###################################
 #https://github.com/chubin/wttr.in#
 ###################################
-neofetch
+#neofetch
 #date
 #curl 'wttr.in/HaiKou?format=%l:+%c+%t+%f+%m+%D+%s+%w+%u\n&lang=zh-tw'
 
