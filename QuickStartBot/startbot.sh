@@ -1,14 +1,83 @@
 #!/bin/bash
 
-#Author:17moonup
-#Blog: https://suyiie.cloud
-#Time: 2023-9-28
-#Name: QuickStartBot.sh
-#Version:V1.0
-#Description: source.list + packages update -> zsh + ohmyzsh + .zshrc -> git -> vim + vundle-> .vimrc -> ......
+echo ' 
+    ,----..        .--.--.        ,---,.
+   /   /   \      /  /    '.    ,'  .'  \
+  /   .     :    |  :  /`. /  ,---.' .' |
+ .   /   ;.  \   ;  |  |--`   |   |  |: |
+.   ;   /  ` ;   |  :  ;_     :   :  :  /
+;   |  ; \ ; |    \  \    `.  :   |    ;
+|   :  | ; | '     `----.   \ |   :     \
+.   |  ' ' ' :     __ \  \  | |   |   . |
+'   ;  \; /  |    /  /`--'  / '   :  '; |
+ \   \  ',  . \  '--'.     /  |   |  | ;
+  ;   :      ; |   `--'---'   |   :   /
+   \   \ .'`--"               |   | ,'
+    `---`                     `----'
 
-echo ' < A QUICK START BOT FOR Ubuntu Debian Kali CentOS > '
-###############################################################################
+ '
+
+##################################################################################
+# Script Name:	QucikStartBot.sh
+# Description:	This a simple script may enable to help you initial files, 
+#		including source_list and .zshrc && .vimrc your LinuxOS like 
+#		Kali,Ubuntu,CentOS and Debian, when you have to reinstall the 
+#		OS for a couple times.
+#		(source.list + packages update --> zsh + ohmyzsh + .zshrc -> git
+#		-> vundle + .vimrc
+# 
+# Usage:	sudo ./startbot.sh [options]
+#		-h | --help : Show usage information
+#		-v | --version: Show script version
+#
+# Author:	moonup17
+# Date: 	2023-09-28
+# Version:	1.0
+#
+# Notes:	Modify this script as needed for your own purpose.
+#		Ensure that it has execute permissions before running:
+#		chmod +x startbot.sh and owing to packages update, you need running:
+#  		sudo ./startbot.sh
+#
+# License: 	MIT License
+###################################################################################
+
+# Version information
+VERSION="1.0"
+
+# Function to display usage information
+usage() {
+    echo "Usage: $0 [options]"
+    echo "Options:"
+    echo "  -h, --help      Show this help message and exit"
+    echo "  -v, --version   Show version information and exit"
+}
+
+# Function to display version information
+version() {
+    echo "$0 version $VERSION"
+}
+
+# Parse command-line arguments
+while [[ "$1" != "" ]]; do
+    case $1 in
+        -h | --help )  shift
+                       usage
+                       exit 0
+                       ;;
+        -v | --version ) version
+                         exit 0
+                         ;;
+        * )            echo "Invalid option: $1"
+                       usage
+                       exit 1
+                       ;;
+    esac
+    shift
+done
+
+#source_list
+
 ubuntu_sources="/etc/apt/sources.list"
 debian_sources="/etc/apt/sources.list"
 kali_sources="/etc/apt/sources.list"
@@ -92,7 +161,9 @@ else
 	exit 1
 
 fi
-###############################################################################
+
+#zsh
+
 shell_path=$SHELL
 ohmyzsh() {	
 	if [ -d "$HOME/.oh-my-zsh" ]; then
@@ -114,14 +185,18 @@ else
 fi
 chsh -s /bin/zsh
 echo 'zsh done'
-###############################################################################
+
+#vim
+
 if [ -d $HOME/.vim ]; then
 	cp $PWD/.vimrc /etc/vim/.vimrc
 else
 	sudo apt install vim
 	cp $PWD/.vimrc /etc/vim/.vimrc
 fi
-###############################################################################
+
+#git 
+
 git config --global user.name "username"
 git config --global user.email "user@email.com"
 git config --list 
